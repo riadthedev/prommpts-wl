@@ -146,7 +146,13 @@ export default function Home() {
     <div style={{ width: '100%', height: '100vh' }}>
       <DarkVeil>
         <div style={{ textAlign: 'center', maxWidth: '600px', padding: '2rem' }}>
-          <h1 style={{ fontFamily: 'var(--font-museo-moderno)', fontSize: '4rem', fontWeight: 'bold', marginBottom: '1rem', color: 'white' }}>
+          <h1 style={{ 
+            fontFamily: 'var(--font-museo-moderno)', 
+            fontSize: 'clamp(2.5rem, 8vw, 4rem)', 
+            fontWeight: 'bold', 
+            marginBottom: '1rem', 
+            color: 'white' 
+          }}>
             PROMMMT
           </h1>
           <p style={{ fontSize: '1.25rem', marginBottom: '2rem', color: 'white', opacity: 0.9 }}>
