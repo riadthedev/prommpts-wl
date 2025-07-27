@@ -7,6 +7,7 @@ import DarkVeil from '../components/DarkVeil';
 export default function Confirmed() {
   const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 });
   const [showConfetti, setShowConfetti] = useState(true);
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     const updateWindowDimensions = () => {
@@ -23,15 +24,73 @@ export default function Confirmed() {
     window.addEventListener('resize', updateWindowDimensions);
 
     // Stop confetti after 5 seconds
-    const timer = setTimeout(() => {
+    const confettiTimer = setTimeout(() => {
       setShowConfetti(false);
     }, 5000);
 
+    // Stop page loading after 1.5 seconds
+    const loadingTimer = setTimeout(() => {
+      setPageLoading(false);
+    }, 1500);
+
     return () => {
       window.removeEventListener('resize', updateWindowDimensions);
-      clearTimeout(timer);
+      clearTimeout(confettiTimer);
+      clearTimeout(loadingTimer);
     };
   }, []);
+
+  if (pageLoading) {
+    return (
+      <div style={{ width: '100%', height: '100vh' }}>
+        <DarkVeil>
+          <div style={{ textAlign: 'center', maxWidth: '600px', padding: '2rem' }}>
+            {/* Skeleton for heading */}
+            <div style={{
+              width: '350px',
+              height: '48px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '0.5rem',
+              marginBottom: '2rem',
+              margin: '0 auto 2rem auto',
+              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            }} />
+            
+            {/* Skeleton for main message */}
+            <div style={{
+              width: '400px',
+              height: '24px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '0.5rem',
+              marginBottom: '1rem',
+              margin: '0 auto 1rem auto',
+              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            }} />
+            
+            {/* Skeleton for description */}
+            <div style={{
+              width: '450px',
+              height: '20px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '0.5rem',
+              margin: '0 auto',
+              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            }} />
+          </div>
+        </DarkVeil>
+        <style jsx>{`
+          @keyframes pulse {
+            0%, 100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
