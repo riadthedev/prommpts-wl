@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json({
       success: true,
-      message: 'Successfully subscribed! Please check your email to confirm your subscription.',
+      message: 'Successfully joined the waitlist! Please check your email to confirm.',
       data: result
     });
 
