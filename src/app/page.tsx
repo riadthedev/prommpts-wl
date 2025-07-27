@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DarkVeil from './components/DarkVeil';
 
 export default function Home() {
@@ -9,6 +9,16 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error' | ''>('');
+  const [pageLoading, setPageLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate page loading
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,6 +63,84 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+
+  if (pageLoading) {
+    return (
+      <div style={{ width: '100%', height: '100vh' }}>
+        <DarkVeil>
+          <div style={{ textAlign: 'center', maxWidth: '600px', padding: '2rem' }}>
+            {/* Skeleton for heading */}
+            <div style={{
+              width: '300px',
+              height: '64px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '0.5rem',
+              marginBottom: '1rem',
+              margin: '0 auto 1rem auto',
+              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            }} />
+            
+            {/* Skeleton for subtitle */}
+            <div style={{
+              width: '500px',
+              height: '24px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '0.5rem',
+              marginBottom: '2rem',
+              margin: '0 auto 2rem auto',
+              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            }} />
+            
+            {/* Skeleton for description */}
+            <div style={{
+              width: '350px',
+              height: '20px',
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '0.5rem',
+              marginBottom: '1.5rem',
+              margin: '0 auto 1.5rem auto',
+              animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+            }} />
+            
+            {/* Skeleton for form */}
+            <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', flexWrap: 'wrap' }}>
+              <div style={{
+                width: '250px',
+                height: '48px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '0.5rem',
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }} />
+              <div style={{
+                width: '250px',
+                height: '48px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '0.5rem',
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }} />
+              <div style={{
+                width: '150px',
+                height: '48px',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderRadius: '0.5rem',
+                animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+              }} />
+            </div>
+          </div>
+        </DarkVeil>
+        <style jsx>{`
+          @keyframes pulse {
+            0%, 100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0.5;
+            }
+          }
+        `}</style>
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: '100%', height: '100vh' }}>
